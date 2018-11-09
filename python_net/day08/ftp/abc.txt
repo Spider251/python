@@ -1,0 +1,9 @@
+KeyboardInterrupt-----输入打断
+isinstance  判断obj是否是cls_or_tuple这个对象的属性    读音:一日因死疼死       
+issubclass  判断是否是父类                           读音:一日'自撒不克拉斯
+enclosure   封装                                    读音:因克漏人儿
+polymorphic 多态                                    读音:抛李毛飞克
+multiple inheritance  多继承                        读音: 毛停坡o  因喝儿瑞疼死
+right hand side    右手边                           读音:  right 汗得  赛得
+reverse            左手边                           读音:瑞味儿自
+property      特性属性                              读音:坡肉哦坡忒

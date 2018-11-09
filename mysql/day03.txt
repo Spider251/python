@@ -1,0 +1,70 @@
+Day03笔记
+1. SQL查询
+  1.distinct:不显示字段的重复值
+    1.示例
+      1.sanguo表中有哪些国家
+        select distinct country from sanguo;
+      2.sanguo表中有几个国家
+        select count(distinct country) from sanguo;
+    2.注意
+      distinct和from之间所有字段值都相同才会去重
+  2.查询表记录时做数学运算
+    1.运算符: + - * / %
+    2.示例
+      1.查询表记录时所有英雄攻击力翻倍
+        select name,gongji*2 from sanguo;
+2.嵌套查询(子查询)
+  1.定义:把内层的查询结果作为外层查询的条件
+  2.语法:
+    select ... from 表名 where 字段名 运算符(select ...)
+  3.示例
+    1.把攻击值小于平均攻击值的英雄名字和攻击值查出来
+    select name,gongji from sanguo where
+    gongji < (select avg(gongji) from sanguo);
+    2.找出每个国家攻击力最高的英雄的名字和攻击值
+    select name,gongji from sanguo 
+    where gongji in
+    (select max(gongji) from sanguo group by country);
+
+    select name,gongji from sanguo 
+    where (country,gongji) in
+    (select country,max(gongji) from sanguo group by country);
+3.多表查询
+  1.两种方式
+    1.不加where(笛卡尔积) 匹配所有
+      select t1.name,t2.name from t1,t2;
+    2.加where条件
+      select 字段名列表 from 表1,表2 where 条件;
+    3.示例:
+      1.查询省.市详细信息
+      河北省 石家庄市
+      河北省 廊坊市
+      湖北省 武汉市
+      select sheng.s_name,city.c_name,xian.x_name from sheng,city,xian where sheng.s_id=city.cfather_id and city.c_id = xian.xfather_id;
+4.连接查询
+  1.内连接(inner join)
+    1.语法结构------on条件必须有
+      select ... from 表1 inner join 表2 on 条件
+      [inner join 表3 on 条件];
+    2.示例
+      1.查找省.市详细信息
+       select sheng.s_name,city.c_name from sheng
+    -> inner join city 
+    -> on sheng.s_id=city.cfather_id;
+      2.查找省,市,县详细信息
+      select sheng.s_name,city.c_name,xian.x_name 
+      from sheng inner join city 
+      on sheng.s_id=city.cfather_id 
+      inner join xian 
+      on city.c_id=xian.xfather_id;
+  2.外连接
+    1.左连接(left join)
+      1.以左表为主显示查询结果
+       select sheng.s_name,city.c_name from sheng
+    -> left join city 
+    -> on sheng.s_id=city.cfather_id;
+    2.右连接(right join)
+      1.以右表为主显示查询结果
+       select sheng.s_name,city.c_name from sheng
+    -> right join city
+    -> on sheng.s_id=city.cfather_id;
